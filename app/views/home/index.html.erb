@@ -1,1 +1,39 @@
-<h1>Welcome to our website</h1>
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center my-4">
+    <h1>All Courses</h1>
+    <%= link_to "New Course", new_course_path, class: "btn btn-success" %>
+  </div>
+
+  <%= form_with url: courses_path, method: :get, local: true, class: "mb-4" do |form| %>
+    <div class="row mb-3">
+      <div class="col-md-8">
+        <%= form.label :query, "Search", class: "form-label" %>
+        <%= form.text_field :query, value: params[:query], class: "form-control" %>
+      </div>
+      <div class="col-md-4 align-self-end">
+        <%= form.submit "Search", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <% @courses.each do |course| %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title"><%= course.title %></h5>
+            <p class="card-text"><%= truncate(course.description, length: 100) %></p>
+            <p class="card-text"><strong>Technologies:</strong> <%= course.technologies %></p>
+            <p class="card-text"><strong>Duration:</strong> <%= course.duration %> hours</p>
+            <p class="card-text"><strong>Table of Contents:</strong> <%= truncate(course.table_of_contents, length: 100) %></p>
+            <p class="card-text"><strong>User:</strong> <%= course.user.email %></p>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <%= link_to "Show this course", course_path(course), class: "btn btn-info" %>
+            <%= link_to "Back to courses", courses_path, class: "btn btn-secondary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
