@@ -8,3 +8,41 @@
 
   <%= button_to "Destroy this course", @course, method: :delete %>
 </div>
+<p>
+  <strong>Title:</strong>
+  <%= @course.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @course.description %>
+</p>
+
+<p>
+  <strong>Technologies:</strong>
+  <%= @course.technologies %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @course.duration %>
+</p>
+
+<p>
+  <strong>Table of Contents:</strong>
+  <%= @course.table_of_contents %>
+</p>
+
+<h2>Reviews</h2>
+<%= link_to 'Add Review', new_course_review_path(@course) %>
+
+<ul>
+  <% @course.reviews.each do |review| %>
+    <li>
+      <strong>Rating:</strong> <%= review.rating %><br>
+      <strong>Comment:</strong> <%= review.comment %><br>
+      <%= link_to 'Edit', edit_course_review_path(@course, review) %> |
+      <%= link_to 'Destroy', course_review_path(@course, review), method: :delete, data: { confirm: 'Are you sure?' } %>
+    </li>
+  <% end %>
+</ul>
